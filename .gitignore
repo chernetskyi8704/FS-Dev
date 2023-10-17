@@ -2,6 +2,8 @@
 */dist
 */node_modules
 *.env
+*dist-ssr
+*.local
 
 # Logs
 logs
@@ -34,3 +36,12 @@ lerna-debug.log*
 !.vscode/tasks.json
 !.vscode/launch.json
 !.vscode/extensions.json
+.idea
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+
+
