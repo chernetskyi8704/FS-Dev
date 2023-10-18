@@ -2,7 +2,13 @@ import FlexSection from "./FlexSection";
 import styled from "styled-components";
 import { useRef, FormEvent, useState } from "react";
 import Span from "./Span";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
+import {
+  useRegistrationMutation,
+  useLoginMutation,
+} from "../store/fatures/auth/authApiSlice";
+import { isApiResponse } from "../utils/apiErrorUtils";
+import { AuthInputData } from "../store/fatures/auth/authApiSlice";
 
 const FormItem = styled.div`
   display: flex;
@@ -102,10 +108,40 @@ const StyledLoginSection = styled(FlexSection)`
 `;
 
 const LoginSection = () => {
+  const navigate = useNavigate();
   const emailRef = useRef<HTMLInputElement>(null);
   const passwordRef = useRef<HTMLInputElement>(null);
   const formRef = useRef<HTMLFormElement>(null);
   const [isSignUp, setISignUp] = useState<boolean>(false);
+
+  const [registration, {}] = useRegistrationMutation();
+  const [login, {}] = useLoginMutation();
+
+  const handleRegistration = async (
+    registrationInputData: AuthInputData
+  ): Promise<void> => {
+    try {
+      await registration(registrationInputData).unwrap();
+      navigate("/log-in");
+    } catch (error) {
+      if (isApiResponse(error)) {
+        alert(error.data.message);
+      }
+    }
+  };
+
+  const handleLogin = async (loginInputData: AuthInputData): Promise<void> => {
+    try {
+      const userData = await login(loginInputData).unwrap();
+      if ("accessToken" in userData) {
+        navigate("/");
+      }
+    } catch (error) {
+      if (isApiResponse(error)) {
+        alert(error.data.message);
+      }
+    }
+  };
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -113,7 +149,15 @@ const LoginSection = () => {
     const passwordValue = passwordRef.current?.value || "";
 
     if (emailValue.length === 0 || passwordValue.length === 0) return;
-    console.log({ emailValue, passwordValue });
+
+    const authInputData: AuthInputData = {
+      email: emailValue,
+      password: passwordValue,
+    };
+
+    // handleRegistration(authInputData);
+    handleLogin(authInputData);
+
     if (isSignUp) {
       setISignUp(false);
     }
@@ -138,6 +182,7 @@ const LoginSection = () => {
             id="password"
             placeholder="Password"
             type="password"
+            minLength={8}
             ref={passwordRef}
           />
         </FormItem>

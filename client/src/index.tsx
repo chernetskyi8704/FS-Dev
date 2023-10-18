@@ -3,6 +3,9 @@ import App from "./App.tsx";
 import { BrowserRouter } from "react-router-dom";
 import { createGlobalStyle } from "styled-components";
 
+import { ApiProvider } from "@reduxjs/toolkit/query/react";
+import { apiSlice } from "./api/apiSlice.ts";
+
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
 );
@@ -24,6 +27,8 @@ ul,li {
 root.render(
   <BrowserRouter>
     <Global />
-    <App />
+    <ApiProvider api={apiSlice}>
+      <App />
+    </ApiProvider>
   </BrowserRouter>
 );
