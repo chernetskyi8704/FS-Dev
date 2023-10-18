@@ -5,8 +5,10 @@ import styled from "styled-components";
 interface LinkProps {
   children: ReactNode;
   to?: string;
-  backgroundColor?: string;
-  textColor?: string;
+  style: {
+    backgroundColor?: string;
+    textColor?: string;
+  };
 }
 
 const StyledLink = styled(NavLink)<LinkProps>`
@@ -20,8 +22,8 @@ const StyledLink = styled(NavLink)<LinkProps>`
   font-family: Merriweather;
   font-weight: 700;
   cursor: pointer;
-  background-color: ${({ backgroundColor }) => backgroundColor};
-  color: ${({ textColor }) => textColor};
+  background-color: ${({ style }) => style.backgroundColor};
+  color: ${({ style }) => style.textColor};
 `;
 
 const Link = (props: LinkProps) => {

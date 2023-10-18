@@ -17,7 +17,7 @@ a {
   text-decoration: none;
 }
 
-ul {
+ul,li {
   list-style-type: none;
 }`;
 

@@ -25,27 +25,51 @@ const ListContainer = styled.ul`
 
 const ListItem = styled.li``;
 
-const Header = () => {
+const StyledLogout = styled(NavLink)`
+  color: red;
+  font-size: 20px;
+`;
+
+interface HeaderProps {
+  isAuth: boolean;
+  setIsAuth: (boolean) => void;
+}
+
+const Header = ({ isAuth, setIsAuth }: HeaderProps) => {
   return (
     <header>
       <Navigation>
         <Logo to="/">My Logo</Logo>
-        <ListContainer>
+        {isAuth ? (
+          <ListContainer>
+            <ListItem>
+              <Link
+                to="/log-in"
+                style={{
+                  backgroundColor: "transparent",
+                  textColor: "#b29f7e",
+                }}
+              >
+                Log In
+              </Link>
+            </ListItem>
+            <ListItem>
+              <Link
+                to="/sign-up"
+                style={{
+                  backgroundColor: "#b29f7e",
+                  textColor: "white",
+                }}
+              >
+                Sign Up
+              </Link>
+            </ListItem>
+          </ListContainer>
+        ) : (
           <ListItem>
-            <Link
-              to="/log-in"
-              backgroundColor={"transparent"}
-              textColor={"#b29f7e"}
-            >
-              Log In
-            </Link>
+            <StyledLogout to="/">Logout</StyledLogout>
           </ListItem>
-          <ListItem>
-            <Link to="/sign-up" backgroundColor={"#b29f7e"} textColor={"white"}>
-              Sign Up
-            </Link>
-          </ListItem>
-        </ListContainer>
+        )}
       </Navigation>
     </header>
   );
