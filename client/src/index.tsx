@@ -2,13 +2,8 @@ import ReactDOM from "react-dom/client";
 import App from "./App.tsx";
 import { BrowserRouter } from "react-router-dom";
 import { createGlobalStyle } from "styled-components";
-
-import { ApiProvider } from "@reduxjs/toolkit/query/react";
-import { apiSlice } from "./api/apiSlice.ts";
-
-const root = ReactDOM.createRoot(
-  document.getElementById("root") as HTMLElement
-);
+import { Provider } from "react-redux";
+import store from "./store/store.ts";
 
 const Global = createGlobalStyle`
 * {
@@ -24,11 +19,15 @@ ul,li {
   list-style-type: none;
 }`;
 
+const root = ReactDOM.createRoot(
+  document.getElementById("root") as HTMLElement
+);
+
 root.render(
-  <BrowserRouter>
-    <Global />
-    <ApiProvider api={apiSlice}>
+  <Provider store={store}>
+    <BrowserRouter>
+      <Global />
       <App />
-    </ApiProvider>
-  </BrowserRouter>
+    </BrowserRouter>
+  </Provider>
 );

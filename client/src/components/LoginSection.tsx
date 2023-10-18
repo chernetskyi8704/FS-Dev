@@ -1,14 +1,14 @@
 import FlexSection from "./FlexSection";
 import styled from "styled-components";
-import { useRef, FormEvent, useState } from "react";
+import { useRef, FormEvent } from "react";
 import Span from "./Span";
 import { NavLink, useNavigate } from "react-router-dom";
-import {
-  useRegistrationMutation,
-  useLoginMutation,
-} from "../store/fatures/auth/authApiSlice";
+import { useRegistrationMutation, useLoginMutation } from "../store/fatures/auth/authApiSlice";
 import { isApiResponse } from "../utils/apiErrorUtils";
 import { AuthInputData } from "../store/fatures/auth/authApiSlice";
+import { useAppDispatch, useAppSelector } from "../hooks/redux";
+import { allAuthStateProperties, setIsRegistering } from "../store/fatures/auth/authSlice";
+import { setCredentials, setIsUserLoggedIn } from "../store/fatures/auth/authSlice";
 
 const FormItem = styled.div`
   display: flex;
@@ -108,11 +108,13 @@ const StyledLoginSection = styled(FlexSection)`
 `;
 
 const LoginSection = () => {
+  const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const emailRef = useRef<HTMLInputElement>(null);
   const passwordRef = useRef<HTMLInputElement>(null);
   const formRef = useRef<HTMLFormElement>(null);
-  const [isSignUp, setISignUp] = useState<boolean>(false);
+
+  const { isRegistering } = useAppSelector(allAuthStateProperties);
 
   const [registration, {}] = useRegistrationMutation();
   const [login, {}] = useLoginMutation();
@@ -122,6 +124,7 @@ const LoginSection = () => {
   ): Promise<void> => {
     try {
       await registration(registrationInputData).unwrap();
+      dispatch(setIsRegistering(false));
       navigate("/log-in");
     } catch (error) {
       if (isApiResponse(error)) {
@@ -134,6 +137,9 @@ const LoginSection = () => {
     try {
       const userData = await login(loginInputData).unwrap();
       if ("accessToken" in userData) {
+        const { accessToken } = userData;
+        dispatch(setIsUserLoggedIn(true));
+        dispatch(setCredentials(accessToken));
         navigate("/");
       }
     } catch (error) {
@@ -155,18 +161,18 @@ const LoginSection = () => {
       password: passwordValue,
     };
 
-    // handleRegistration(authInputData);
-    handleLogin(authInputData);
+    isRegistering
+      ? handleRegistration(authInputData)
+      : handleLogin(authInputData);
 
-    if (isSignUp) {
-      setISignUp(false);
-    }
     formRef.current?.reset();
   };
   return (
     <StyledLoginSection>
       <SignInForm ref={formRef} onSubmit={e => handleSubmit(e)}>
-        <StyledHeader>{isSignUp ? "Create an Account" : "Login"}</StyledHeader>
+        <StyledHeader>
+          {isRegistering ? "Create an Account" : "Login"}
+        </StyledHeader>
         <FormItem>
           <StyledLabel htmlFor="email">Email</StyledLabel>
           <StyledInput
@@ -186,18 +192,18 @@ const LoginSection = () => {
             ref={passwordRef}
           />
         </FormItem>
-        {!isSignUp && (
+        {!isRegistering && (
           <StyledForgot to={"/log-in"}>Forgot password?</StyledForgot>
         )}
         <SignButtonInContainer>
-          <SignInButton>{!isSignUp ? "Sign In" : "Sign Up"}</SignInButton>
-          {!isSignUp && (
+          <SignInButton>{isRegistering ? "Sign Up" : "Sign In"}</SignInButton>
+          {!isRegistering && (
             <StyledText>
               Don't have account?
               <StyledSignUp
                 to="/sign-up"
                 onClick={() => {
-                  setISignUp(true);
+                  dispatch(setIsRegistering(true));
                 }}
               >
                 Sign Up

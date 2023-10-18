@@ -9,6 +9,7 @@ interface LinkProps {
     backgroundColor?: string;
     textColor?: string;
   };
+  onClick?: () => void;
 }
 
 const StyledLink = styled(NavLink)<LinkProps>`
