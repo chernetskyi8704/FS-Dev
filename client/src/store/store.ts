@@ -9,6 +9,8 @@ const rootReducer = combineReducers({
 
 const store = configureStore({
   reducer: rootReducer,
+  middleware: getDefaultMiddleware =>
+    getDefaultMiddleware().concat(apiSlice.middleware),
 });
 
 export default store;

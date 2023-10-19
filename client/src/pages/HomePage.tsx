@@ -1,5 +1,6 @@
 import styled from "styled-components";
-import DealDescription from "../components/DealDescription";
+import { useGetAllDealsQuery } from "../store/fatures/deals/dealsApiSlice";
+import Deal from "./Deal";
 
 const StyledContainer = styled.div`
   position: relative;
@@ -51,7 +52,7 @@ const HomePageTextBody = styled.p`
   letter-spacing: -0.48px;
 `;
 
-const Test = styled.div`
+const DealContainer = styled.div`
   display: flex;
   flex-direction: column;
   padding: 60px 80px 10px 80px;
@@ -76,26 +77,9 @@ const AllDeals = styled.ul`
   gap: 20px;
 `;
 
-const DealsItem = styled.li`
-  flex: 0 1 calc(50% - 20px);
-`;
-
-const StyledImage = styled.img`
-  width: 630px;
-  height: 400px;
-  border-radius: 10px;
-`;
-
-const DealContent = styled.div`
-  position: relative;
-  width: 630px;
-  height: 400px;
-  flex-shrink: 0;
-  border-radius: 10px;
-  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.15);
-`;
-
 const HomePage = () => {
+  const { data: allDeals, isSuccess } = useGetAllDealsQuery();
+
   return (
     <>
       <StyledContainer>
@@ -113,125 +97,15 @@ const HomePage = () => {
           </HomePageText>
         </HomePageHeaderSection>
       </StyledContainer>
-      <Test>
+      <DealContainer>
         <DealsHeader>Open Deals</DealsHeader>
         <AllDeals>
-          <DealsItem>
-            <DealContent>
-              <StyledImage
-                src="../src/assets/test.png"
-                height={"400px"}
-                width={"630px"}
-              />
-              <DealDescription
-                styles={{
-                  bottom: "69px",
-                  left: "14px",
-                  width: "216px",
-                  height: "34px",
-                  fontFamily: "Merriweather",
-                  fontSize: "20px",
-                  lineHeight: "34px",
-                }}
-              >
-                The Marina Torch
-              </DealDescription>
-              <DealDescription
-                styles={{
-                  bottom: "47px",
-                  left: "14px",
-                  width: "170px",
-                  height: "17px",
-                  fontFamily: "Lato",
-                  fontSize: "18px",
-                  lineHeight: "22px",
-                }}
-              >
-                6 500 000 Dhs
-              </DealDescription>
-              <DealDescription
-                styles={{
-                  bottom: "20px",
-                  left: "14px",
-                  width: "170px",
-                  height: "17px",
-                  fontFamily: "Lato",
-                  fontSize: "18px",
-                  lineHeight: "22px",
-                }}
-              >
-                Tiket - 60 000 Dhs
-              </DealDescription>
-              <DealDescription
-                styles={{
-                  bottom: "47px",
-                  left: "244px",
-                  width: "170px",
-                  height: "17px",
-                  fontFamily: "Lato",
-                  fontSize: "18px",
-                  lineHeight: "22px",
-                }}
-              >
-                Yield 9.25%
-              </DealDescription>
-              <DealDescription
-                styles={{
-                  bottom: "20px",
-                  left: "244px",
-                  width: "170px",
-                  height: "17px",
-                  fontFamily: "Lato",
-                  fontSize: "18px",
-                  lineHeight: "22px",
-                }}
-              >
-                Days left 150
-              </DealDescription>
-              <DealDescription
-                styles={{
-                  bottom: "47px",
-                  left: "474px",
-                  width: "170px",
-                  height: "17px",
-                  fontFamily: "Lato",
-                  fontSize: "18px",
-                  lineHeight: "22px",
-                }}
-              >
-                Sold 75%
-              </DealDescription>
-            </DealContent>
-          </DealsItem>
-          <DealsItem>
-            <DealContent>
-              <StyledImage
-                src="../src/assets/test.png"
-                height={"400px"}
-                width={"630px"}
-              />
-            </DealContent>
-          </DealsItem>
-          <DealsItem>
-            <DealContent>
-              <StyledImage
-                src="../src/assets/test.png"
-                height={"400px"}
-                width={"630px"}
-              />
-            </DealContent>
-          </DealsItem>
-          <DealsItem>
-            <DealContent>
-              <StyledImage
-                src="../src/assets/test.png"
-                height={"400px"}
-                width={"630px"}
-              />
-            </DealContent>
-          </DealsItem>
+          {isSuccess &&
+            allDeals.map(dealItem => (
+              <Deal key={dealItem.id} deal={dealItem} />
+            ))}
         </AllDeals>
-      </Test>
+      </DealContainer>
     </>
   );
 };
