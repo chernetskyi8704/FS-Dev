@@ -112,7 +112,17 @@ const HomePage = () => {
               mass defect is
             </HomePageTextBody>
           </HomePageText>
-          <HomePageButton>Get Started</HomePageButton>
+          <HomePageButton
+            onClick={() => {
+              window.scrollTo({
+                top: document.body.scrollHeight,
+                left: 0,
+                behavior: "smooth",
+              });
+            }}
+          >
+            Get Started
+          </HomePageButton>
         </HomePageHeaderSection>
       </StyledContainer>
       <DealContainer>
