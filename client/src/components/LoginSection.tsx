@@ -3,12 +3,21 @@ import styled from "styled-components";
 import { useRef, FormEvent } from "react";
 import Span from "./Span";
 import { NavLink, useNavigate } from "react-router-dom";
-import { useRegistrationMutation, useLoginMutation } from "../store/fatures/auth/authApiSlice";
+import {
+  useRegistrationMutation,
+  useLoginMutation,
+} from "../store/fatures/auth/authApiSlice";
 import { isApiResponse } from "../utils/apiErrorUtils";
 import { AuthInputData } from "../store/fatures/auth/authApiSlice";
 import { useAppDispatch, useAppSelector } from "../hooks/redux";
-import { allAuthStateProperties, setIsRegistering } from "../store/fatures/auth/authSlice";
-import { setCredentials, setIsUserLoggedIn } from "../store/fatures/auth/authSlice";
+import {
+  allAuthStateProperties,
+  setIsRegistering,
+} from "../store/fatures/auth/authSlice";
+import {
+  setCredentials,
+  setIsUserLoggedIn,
+} from "../store/fatures/auth/authSlice";
 
 const FormItem = styled.div`
   display: flex;

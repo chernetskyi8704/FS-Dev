@@ -5,12 +5,14 @@ interface AuthInitialState {
   token: null | string;
   isUserLoggedIn: boolean;
   isRegistering: boolean;
+  isAuthButtonsVisible: boolean;
 }
 
 const authInitialState: AuthInitialState = {
   token: null,
   isUserLoggedIn: false,
   isRegistering: false,
+  isAuthButtonsVisible: true,
 };
 
 export const authSlice = createSlice({
@@ -27,11 +29,14 @@ export const authSlice = createSlice({
     setIsUserLoggedIn: (state, action: PayloadAction<boolean>) => {
       state.isUserLoggedIn = action.payload;
     },
+    setIsAuthButtonsVisible: (state, action: PayloadAction<boolean>) => {
+      state.isUserLoggedIn = action.payload;
+    },
   },
 });
 
 export const allAuthStateProperties = (state: RootState) => state.auth;
-export const { setCredentials, setIsRegistering, setIsUserLoggedIn } =
+export const { setCredentials, setIsRegistering, setIsUserLoggedIn, setIsAuthButtonsVisible } =
   authSlice.actions;
 
 export default authSlice.reducer;

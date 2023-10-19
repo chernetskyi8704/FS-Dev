@@ -2,20 +2,17 @@ import styled from "styled-components";
 import Link from "./Link";
 import { NavLink } from "react-router-dom";
 import { useAppSelector, useAppDispatch } from "../hooks/redux";
-import {
-  allAuthStateProperties,
-  setIsUserLoggedIn,
-} from "../store/fatures/auth/authSlice";
+import { allAuthStateProperties, setIsUserLoggedIn } from "../store/fatures/auth/authSlice";
 import { setIsRegistering } from "../store/fatures/auth/authSlice";
 
 const Navigation = styled.nav`
   display: flex;
-  height: 80px;
+  position: absolute;
+  z-index: 3;
   width: 100%;
   padding: 18px 80px;
   align-items: center;
   justify-content: space-between;
-  flex-shrink: 0;
   background-color: #172234;
 `;
 

@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { ReactNode } from "react";
 
 type StyledSectionProps = {
-  children: ReactNode;
+  children?: ReactNode;
 };
 
 const StyledSection = styled.section<StyledSectionProps>`

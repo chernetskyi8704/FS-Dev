@@ -3,6 +3,7 @@ import AppRouter from "./routes/AppRouter";
 
 const StyledMain = styled.main`
   flex: 1 auto;
+  min-height: 100%;
 `;
 
 const Main = () => {
