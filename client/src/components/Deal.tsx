@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import DealDescription from "../components/DealDescription";
+import DealDescription from "./DealDescription";
 import { DealItem } from "../store/fatures/deals/dealsApiSlice";
 
 const DealsItem = styled.li`

@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { useGetAllDealsQuery } from "../store/fatures/deals/dealsApiSlice";
-import Deal from "./Deal";
+import Deal from "../components/Deal";
 
 const StyledContainer = styled.div`
   position: relative;
@@ -17,6 +17,8 @@ const HomePageHeaderSection = styled.section`
   right: 0;
   bottom: 0;
   display: flex;
+  flex-direction: column;
+  gap: 30px;
   justify-content: center;
   align-items: center;
   background: rgba(23, 34, 52, 0.6);
@@ -50,6 +52,21 @@ const HomePageTextBody = styled.p`
   font-weight: 400;
   line-height: 32px;
   letter-spacing: -0.48px;
+`;
+
+const HomePageButton = styled.button`
+  border: 1px solid #fff;
+  border-radius: 8px;
+  padding: 10px 24px;
+  cursor: pointer;
+  color: #fff;
+
+  font-family: Merriweather;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 34px;
+  background: transparent;
 `;
 
 const DealContainer = styled.div`
@@ -95,6 +112,7 @@ const HomePage = () => {
               mass defect is
             </HomePageTextBody>
           </HomePageText>
+          <HomePageButton>Get Started</HomePageButton>
         </HomePageHeaderSection>
       </StyledContainer>
       <DealContainer>
