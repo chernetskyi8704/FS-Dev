@@ -1,12 +1,12 @@
 import styled from "styled-components";
 import { useGetAllDealsQuery } from "../store/fatures/deals/dealsApiSlice";
 import Deal from "../components/Deal";
+import homePageImage from "/src/assets/be8fbaf8d7b80aeb919c8ae858f5037f.png";
 
 const StyledContainer = styled.div`
   position: relative;
   height: 1024px;
-  background: url("/src/assets/be8fbaf8d7b80aeb919c8ae858f5037f.png") no-repeat
-    center;
+  background: url(${homePageImage}) no-repeat center;
   background-size: cover;
 `;
 
