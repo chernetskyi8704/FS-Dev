@@ -4,8 +4,8 @@ import LoginSection from "../components/LoginSection";
 import FlexSection from "../components/FlexSection";
 
 const AuthPageWrapper = styled(FlexSection)`
-  height: 100vh;
-  width: 100%;
+  width: 1440px;
+  height: 100%;
 `;
 
 const AuthPage = () => {

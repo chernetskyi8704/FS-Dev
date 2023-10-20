@@ -5,6 +5,7 @@ import Main from "./components/Main";
 const AppWrapper = styled.div`
   position: relative;
   max-width: 1440px;
+  height: 100vh;
 `;
 
 const App = () => {

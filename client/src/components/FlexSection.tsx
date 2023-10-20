@@ -7,7 +7,6 @@ type StyledSectionProps = {
 
 const StyledSection = styled.section<StyledSectionProps>`
   display: flex;
-  flex: 1;
 `;
 
 const FlexSection = (props: StyledSectionProps) => {
