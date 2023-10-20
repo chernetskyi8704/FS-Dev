@@ -5,8 +5,8 @@ import Deal from "../components/Deal";
 const StyledContainer = styled.div`
   position: relative;
   height: 1024px;
-  background: url("../src/assets/be8fbaf8d7b80aeb919c8ae858f5037f.png")
-    no-repeat center;
+  background: url("/src/assets/be8fbaf8d7b80aeb919c8ae858f5037f.png") no-repeat
+    center;
   background-size: cover;
 `;
 

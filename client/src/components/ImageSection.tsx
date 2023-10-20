@@ -9,7 +9,7 @@ const Image = styled.img`
 const ImageSection = () => {
   return (
     <FlexSection>
-      <Image src="../src/assets/b2f7ebf3957623e4989fbd343e95450f.png" />
+      <Image src="/src/assets/b2f7ebf3957623e4989fbd343e95450f.png" />
     </FlexSection>
   );
 };
