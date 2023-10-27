@@ -1,13 +1,20 @@
 import { Module } from '@nestjs/common';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
 import { ConfigModule } from '@nestjs/config';
 import { DealsModule } from './deals/deals.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { UsersModule } from './users/users.module';
 import { IamModule } from './iam/iam.module';
+import { APP_FILTER } from '@nestjs/core';
+import { AllExceptionsFilter } from './filters/all-exceptions.filter';
 
 @Module({
+  controllers: [],
+  providers: [
+    {
+      provide: APP_FILTER,
+      useClass: AllExceptionsFilter,
+    },
+  ],
   imports: [
     ConfigModule.forRoot({
       envFilePath: '.env',
@@ -26,7 +33,5 @@ import { IamModule } from './iam/iam.module';
     UsersModule,
     IamModule,
   ],
-  controllers: [AppController],
-  providers: [AppService],
 })
 export class AppModule {}
