@@ -29,7 +29,7 @@ import { AllExceptionsFilter } from './filters/all-exceptions.filter';
       password: process.env.POSTGRES_PASSWORD,
       database: process.env.POSTGRES_DATABASE,
       autoLoadEntities: true,
-      synchronize: false,
+      synchronize: true,
       extra: {
         ssl: true,
       },
