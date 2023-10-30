@@ -30,6 +30,9 @@ import { AllExceptionsFilter } from './filters/all-exceptions.filter';
       database: process.env.POSTGRES_DATABASE,
       autoLoadEntities: true,
       synchronize: false,
+      extra: {
+        ssl: true,
+      },
     }),
     DealsModule,
     UsersModule,
