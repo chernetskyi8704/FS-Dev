@@ -1,10 +1,12 @@
 import { Module } from '@nestjs/common';
-import { ConfigModule } from '@nestjs/config';
-import { DealsModule } from './deals/deals.module';
+import { APP_FILTER } from '@nestjs/core';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { ConfigModule } from '@nestjs/config';
+
+import { DealsModule } from './deals/deals.module';
 import { UsersModule } from './users/users.module';
 import { IamModule } from './iam/iam.module';
-import { APP_FILTER } from '@nestjs/core';
+
 import { AllExceptionsFilter } from './filters/all-exceptions.filter';
 
 @Module({
