@@ -103,7 +103,7 @@ const StyledSignUp = styled(NavLink)`
 
 const StyledLoginSection = styled.section`
   display: flex;
-  width: 100%;
+  flex: 0 1 50%;
   align-items: center;
   justify-content: center;
 `;
