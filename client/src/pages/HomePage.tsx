@@ -90,10 +90,10 @@ const DealsHeader = styled.div`
 
 const AllDeals = styled.ul`
   display: flex;
-  padding: 0 200px;
   justify-content: center;
   flex-wrap: wrap;
   gap: 20px;
+  padding-bottom: 20px;
 `;
 
 const HomePage = () => {
@@ -124,7 +124,7 @@ const HomePage = () => {
         <AllDeals>
           {isSuccess &&
             allDeals.map(dealItem => (
-              <Deal key={dealItem.id} deal={dealItem} />
+              <Deal key={dealItem.id} deal={dealItem} img={dealItem.img}/>
             ))}
         </AllDeals>
       </DealContainer>
