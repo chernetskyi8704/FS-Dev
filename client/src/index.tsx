@@ -11,10 +11,7 @@ const Global = createGlobalStyle`
   padding: 0;
   box-sizing: border-box;
 }
-body {
-  display: flex;
-  justify-content: center;
-}
+
 a {
   text-decoration: none;
 }
@@ -23,11 +20,11 @@ ul,li {
   list-style-type: none;
 }`;
 
-const root = ReactDOM.createRoot(
+const rootElement = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
 );
 
-root.render(
+rootElement.render(
   <Provider store={store}>
     <BrowserRouter>
       <Global />

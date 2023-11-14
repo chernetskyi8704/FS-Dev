@@ -3,20 +3,19 @@ import DealDescription from "./DealDescription";
 import { DealItem } from "../store/fatures/deals/dealsApiSlice";
 
 const DealsItem = styled.li`
+  min-width: 400px;
   flex: 0 1 calc(50% - 20px);
 `;
 
 const StyledImage = styled.img`
-  width: 630px;
+  width: 100%;
   height: 400px;
   border-radius: 10px;
 `;
 
 const DealContent = styled.div`
   position: relative;
-  width: 630px;
-  height: 400px;
-  flex-shrink: 0;
+  max-height: 400px;
   border-radius: 10px;
   box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.15);
 `;
@@ -29,7 +28,7 @@ const Deal = ({ deal }: DealProps) => {
   return (
     <DealsItem>
       <DealContent>
-        <StyledImage src={deal.img} height={"400px"} width={"630px"} />
+        <StyledImage src={deal.img} />
         <DealDescription
           styles={{
             bottom: "69px",

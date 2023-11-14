@@ -3,9 +3,10 @@ import Header from "./components/Header";
 import Main from "./components/Main";
 
 const AppWrapper = styled.div`
+  display: flex;
   position: relative;
-  max-width: 1440px;
   height: 100vh;
+  user-select: none;
 `;
 
 const App = () => {

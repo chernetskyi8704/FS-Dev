@@ -1,4 +1,3 @@
-import FlexSection from "./FlexSection";
 import styled from "styled-components";
 import { useRef, FormEvent } from "react";
 import Span from "./Span";
@@ -102,8 +101,9 @@ const StyledSignUp = styled(NavLink)`
   cursor: pointer;
 `;
 
-const StyledLoginSection = styled(FlexSection)`
-  flex: 1;
+const StyledLoginSection = styled.section`
+  display: flex;
+  width: 100%;
   align-items: center;
   justify-content: center;
 `;

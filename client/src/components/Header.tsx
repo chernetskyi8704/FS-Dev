@@ -33,12 +33,14 @@ const StyledLogout = styled(NavLink)`
   font-size: 20px;
 `;
 
+const StyledHeader = styled.header``;
+
 const Header = () => {
   const dispatch = useAppDispatch();
   const { isUserLoggedIn } = useAppSelector(allAuthStateProperties);
 
   return (
-    <header>
+    <StyledHeader>
       <Navigation>
         <Logo to="/">My Logo</Logo>
         {!isUserLoggedIn ? (
@@ -85,7 +87,7 @@ const Header = () => {
           </ListItem>
         )}
       </Navigation>
-    </header>
+    </StyledHeader>
   );
 };
 

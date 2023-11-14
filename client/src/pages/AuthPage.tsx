@@ -1,10 +1,10 @@
 import styled from "styled-components";
 import ImageSection from "../components/ImageSection";
 import LoginSection from "../components/LoginSection";
-import FlexSection from "../components/FlexSection";
 
-const AuthPageWrapper = styled(FlexSection)`
-  width: 1440px;
+const AuthPageWrapper = styled.div`
+  display: flex;
+  width: 100%;
   height: 100%;
 `;
 

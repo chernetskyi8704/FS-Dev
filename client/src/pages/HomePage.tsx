@@ -4,6 +4,7 @@ import Deal from "../components/Deal";
 import homePageImage from "/src/assets/be8fbaf8d7b80aeb919c8ae858f5037f.png";
 
 const StyledContainer = styled.div`
+  width: 100%;
   position: relative;
   height: 1024px;
   background: url(${homePageImage}) no-repeat center;
@@ -29,7 +30,6 @@ const HomePageText = styled.div`
   flex-direction: column;
   align-items: center;
   gap: 10px;
-  width: 1085px;
 `;
 
 const HomePageTextHeader = styled.h1`
@@ -75,7 +75,7 @@ const DealContainer = styled.div`
   padding: 60px 80px 10px 80px;
   gap: 28px;
   height: calc(1976px - 1024px);
-  width: 100%;
+  min-width: 100%;
 `;
 
 const DealsHeader = styled.div`
@@ -90,6 +90,8 @@ const DealsHeader = styled.div`
 
 const AllDeals = styled.ul`
   display: flex;
+  padding: 0 200px;
+  justify-content: center;
   flex-wrap: wrap;
   gap: 20px;
 `;
@@ -112,15 +114,7 @@ const HomePage = () => {
               mass defect is
             </HomePageTextBody>
           </HomePageText>
-          <HomePageButton
-            onClick={() => {
-              window.scrollTo({
-                top: document.body.scrollHeight,
-                left: 0,
-                behavior: "smooth",
-              });
-            }}
-          >
+          <HomePageButton>
             Get Started
           </HomePageButton>
         </HomePageHeaderSection>
