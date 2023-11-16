@@ -38,16 +38,17 @@ const HomePageTextHeader = styled.h1`
   text-align: center;
   font-family: Merriweather;
   font-size: 64px;
+  font-size: clamp(2.8em, 5vw, 4em);
   font-style: normal;
   font-weight: 700;
 `;
 
 const HomePageTextBody = styled.p`
-  width: 822px;
+  max-width: 822px;
   color: #fff;
   text-align: center;
   font-family: Lato;
-  font-size: 24px;
+  font-size: clamp(1em, 5vw, 1.5em);
   font-style: normal;
   font-weight: 400;
   line-height: 32px;

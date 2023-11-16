@@ -200,7 +200,7 @@ const LoginSection = () => {
           <SignInButton>{isRegistering ? "Sign Up" : "Sign In"}</SignInButton>
           {!isRegistering && (
             <StyledText>
-              Don't have account?
+              Don't have account?{' '}
               <StyledSignUp
                 to="/sign-up"
                 onClick={() => {
