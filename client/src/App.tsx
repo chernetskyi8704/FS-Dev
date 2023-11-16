@@ -4,15 +4,15 @@ import Main from "./components/Main";
 
 const AppWrapper = styled.div`
   display: flex;
-  position: relative;
   height: 100vh;
   user-select: none;
+  // overflow: hidden;
 `;
 
 const App = () => {
   return (
     <AppWrapper>
-      <Header />
+      {/* <Header /> */}
       <Main />
     </AppWrapper>
   );

@@ -30,6 +30,7 @@ const HomePageText = styled.div`
   flex-direction: column;
   align-items: center;
   gap: 10px;
+  overflow: hidden;
 `;
 
 const HomePageTextHeader = styled.h1`
@@ -38,7 +39,7 @@ const HomePageTextHeader = styled.h1`
   text-align: center;
   font-family: Merriweather;
   font-size: 64px;
-  font-size: clamp(2.8em, 5vw, 4em);
+  font-size: clamp(2.6em, 5vw, 4em);
   font-style: normal;
   font-weight: 700;
 `;
@@ -53,6 +54,10 @@ const HomePageTextBody = styled.p`
   font-weight: 400;
   line-height: 32px;
   letter-spacing: -0.48px;
+
+  @media ${props => props.theme.media.tablet} {
+    padding: 20px;
+  }
 `;
 
 const HomePageButton = styled.button`
@@ -72,21 +77,38 @@ const HomePageButton = styled.button`
 
 const DealContainer = styled.div`
   display: flex;
+  min-height: 100vh;
   flex-direction: column;
-  padding: 60px 80px 10px 80px;
+  padding: 60px 180px 10px 180px;
   gap: 28px;
   height: calc(1976px - 1024px);
   min-width: 100%;
+
+  @media ${props => props.theme.media.laptopL} {
+    padding: 40px 120px 10px 120px;
+  }
+
+  @media ${props => props.theme.media.tablet} {
+    padding: 30px 60px 10px 60px;
+  }
+
+  @media ${props => props.theme.media.phone} {
+    padding: 30px 20px 10px 20px;
+  }
 `;
 
 const DealsHeader = styled.div`
   heigth: 50px;
   color: #b29f7e;
   font-family: Merriweather;
-  font-size: 28px;
+  font-size: clamp(2.4em, 5vw, 3em);
   font-style: normal;
   font-weight: 700;
   line-height: 34px;
+
+  @media ${props => props.theme.media.phone} {
+    text-align: center;
+  }
 `;
 
 const AllDeals = styled.ul`
@@ -115,9 +137,7 @@ const HomePage = () => {
               mass defect is
             </HomePageTextBody>
           </HomePageText>
-          <HomePageButton>
-            Get Started
-          </HomePageButton>
+          <HomePageButton>Get Started</HomePageButton>
         </HomePageHeaderSection>
       </StyledContainer>
       <DealContainer>
@@ -125,7 +145,7 @@ const HomePage = () => {
         <AllDeals>
           {isSuccess &&
             allDeals.map(dealItem => (
-              <Deal key={dealItem.id} deal={dealItem} img={dealItem.img}/>
+              <Deal key={dealItem.id} deal={dealItem} img={dealItem.img} />
             ))}
         </AllDeals>
       </DealContainer>

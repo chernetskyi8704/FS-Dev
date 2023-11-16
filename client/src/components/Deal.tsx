@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import DealDescription from "./DealDescription";
 import { DealItem } from "../store/fatures/deals/dealsApiSlice";
+import { useState, useRef, useLayoutEffect } from "react";
 
 interface DealProps {
   deal: DealItem;
@@ -9,7 +10,7 @@ interface DealProps {
 
 const DealsItem = styled.li<Partial<DealProps>>`
   position: relative;
-  min-width: 400px;
+  width: 400px;
   flex: 0 1 calc(50% - 10px);
   border-radius: 10px;
   background: url(${props => props.img});
@@ -23,22 +24,51 @@ const DealsItem = styled.li<Partial<DealProps>>`
     right: 0;
     bottom: 0;
     border-radius: 10px;
-    background: rgba(0,0,0,0.2);
+    background: rgba(0, 0, 0, 0.2);
+  }
+
+  @media ${props => props.theme.media.laptop} {
+    min-width: 100%;
+  }
+
+  @media ${props => props.theme.media.phone} {
+    height: 300px;
   }
 `;
 
 const Deal = ({ deal }: DealProps) => {
+  const elementRef = useRef<HTMLLIElement | null>(null);
+  const [elementWidth, setElementWidth] = useState(0);
+
+  useLayoutEffect(() => {
+    function handleResize() {
+      if (elementRef.current) {
+        const width = elementRef.current.offsetWidth;
+        setElementWidth(width);
+      }
+    }
+    handleResize();
+
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, [elementRef]);
+
   const containerStyles = {
-    background: `url(${deal.img})`,
+    background: `url(${deal.img}) no-repeat`,
+    backgroundSize: "cover",
   };
 
+  const getDaysLeftPosition = elementWidth < 364 ? "200px" : "244px";
+
   return (
-    <DealsItem style={containerStyles}>
+    <DealsItem style={containerStyles} ref={elementRef}>
       <DealDescription
         styles={{
           bottom: "69px",
-          left: "14px",
-          width: "216px",
+          left: "1%",
           height: "34px",
           fontFamily: "Merriweather",
           fontSize: "20px",
@@ -50,8 +80,7 @@ const Deal = ({ deal }: DealProps) => {
       <DealDescription
         styles={{
           bottom: "47px",
-          left: "14px",
-          width: "170px",
+          left: "1%",
           height: "17px",
           fontFamily: "Lato",
           fontSize: "18px",
@@ -63,8 +92,7 @@ const Deal = ({ deal }: DealProps) => {
       <DealDescription
         styles={{
           bottom: "20px",
-          left: "14px",
-          width: "170px",
+          left: "1%",
           height: "17px",
           fontFamily: "Lato",
           fontSize: "18px",
@@ -76,8 +104,7 @@ const Deal = ({ deal }: DealProps) => {
       <DealDescription
         styles={{
           bottom: "47px",
-          left: "244px",
-          width: "170px",
+          left: `${getDaysLeftPosition}`,
           height: "17px",
           fontFamily: "Lato",
           fontSize: "18px",
@@ -89,8 +116,7 @@ const Deal = ({ deal }: DealProps) => {
       <DealDescription
         styles={{
           bottom: "20px",
-          left: "244px",
-          width: "170px",
+          left: `${getDaysLeftPosition}`,
           height: "17px",
           fontFamily: "Lato",
           fontSize: "18px",
@@ -99,19 +125,20 @@ const Deal = ({ deal }: DealProps) => {
       >
         Days left {deal.daysLeft}
       </DealDescription>
-      <DealDescription
-        styles={{
-          bottom: "47px",
-          left: "474px",
-          width: "170px",
-          height: "17px",
-          fontFamily: "Lato",
-          fontSize: "18px",
-          lineHeight: "22px",
-        }}
-      >
-        Sold {deal.sold}
-      </DealDescription>
+      {elementWidth > 500 && (
+        <DealDescription
+          styles={{
+            bottom: "47px",
+            left: `77%`,
+            height: "17px",
+            fontFamily: "Lato",
+            fontSize: "18px",
+            lineHeight: "22px",
+          }}
+        >
+          Sold {deal.sold}
+        </DealDescription>
+      )}
     </DealsItem>
   );
 };

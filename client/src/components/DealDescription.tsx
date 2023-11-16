@@ -6,7 +6,6 @@ interface DealDescriptionProps {
   styles: {
     bottom: string;
     left: string;
-    width: string;
     height: string;
     fontFamily: string;
     fontSize: string;
@@ -20,7 +19,7 @@ const StyledDescription = styled.p<DealDescriptionProps>`
 
   bottom: ${({ styles }) => styles.bottom};
   left: ${({ styles }) => styles.left};
-  width: ${({ styles }) => styles.width};
+  width: auto;
   height: ${({ styles }) => styles.height};
 
   font-family: ${({ styles }) => styles.fontFamily};
