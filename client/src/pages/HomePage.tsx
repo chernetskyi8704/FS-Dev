@@ -23,6 +23,26 @@ const HomePageHeaderSection = styled.section`
   justify-content: center;
   align-items: center;
   background: rgba(23, 34, 52, 0.6);
+
+  @media ${props => props.theme.media.laptopL} {
+    justify-content: start;
+    padding-top: 15%;
+  }
+
+  @media ${props => props.theme.media.laptop} {
+    justify-content: start;
+    padding-top: 25%;
+  }
+
+  @media ${props => props.theme.media.tablet} {
+    justify-content: start;
+    padding-top: 35%;
+  }
+
+  @media ${props => props.theme.media.phone} {
+    justify-content: start;
+    padding-top: 50%;
+  }
 `;
 
 const HomePageText = styled.div`
@@ -38,7 +58,6 @@ const HomePageTextHeader = styled.h1`
   align-self: stretch;
   text-align: center;
   font-family: Merriweather;
-  font-size: 64px;
   font-size: clamp(2.6em, 5vw, 4em);
   font-style: normal;
   font-weight: 700;
