@@ -5,6 +5,10 @@ const StyledImageSection = styled.section`
   flex: 0 1 50%;
   background: url(${styledImageSectionImage}) no-repeat center;
   background-size: cover;
+
+  @media ${props => props.theme.media.tablet} {
+    display: none;
+  }
 `;
 
 const ImageSection = () => {

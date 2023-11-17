@@ -9,44 +9,65 @@ import { useAppDispatch, useAppSelector } from "../hooks/redux";
 import { allAuthStateProperties, setIsRegistering } from "../store/fatures/auth/authSlice";
 import { setCredentials, setIsUserLoggedIn } from "../store/fatures/auth/authSlice";
 
-const FormItem = styled.div`
+const StyledLoginSection = styled.section`
   display: flex;
-  flex-direction: column;
-  gap: 3px;
-`;
+  flex: 0 1 50%;
+  align-items: center;
+  justify-content: center;
 
-const StyledHeader = styled.h1`
-  color: #172234;
-  font-family: Merriweather;
-  font-size: 28px;
-  font-style: normal;
-  font-weight: 700;
-`;
+  .signInForm {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    width: 100%;
+    max-width: 350px;
+    max-height: 354px;
+    background-color: white;
+  }
 
-const SignInForm = styled.form`
-  display: flex;
-  flex-direction: column;
-  gap: 24px;
-  width: 100%;
-  max-width: 350px;
-  max-height: 354px;
-  background-color: white;
-`;
+  .formHeader {
+    color: #172234;
+    font-family: Merriweather;
+    font-size: 28px;
+    font-style: normal;
+    font-weight: 700;
 
-const StyledLabel = styled.label`
-  color: #000;
-  font-family: Merriweather;
-  font-size: 14px;
-  font-style: normal;
-  font-weight: 700;
-  line-height: 20px;
-`;
+    @media ${props => props.theme.media.tablet} {
+      text-align: center;
+    }
 
-const StyledInput = styled.input`
-  padding: 12px;
-  border: none;
-  outline: none;
-  background-color: #e0e0e0;
+    .formItem {
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+    }
+  }
+
+  .formItem {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+  }
+
+  .formLabel {
+    color: #000;
+    font-family: Merriweather;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 20px;
+  }
+
+  .formInput {
+    padding: 12px;
+    border: none;
+    outline: none;
+    background-color: #e0e0e0;
+  }
+
+  @media ${props => props.theme.media.tablet} {
+    flex: 0 1 100%;
+  }
 `;
 
 const SignInButton = styled.button`
@@ -99,13 +120,6 @@ const StyledSignUp = styled(NavLink)`
   font-weight: 600;
   line-height: 22px;
   cursor: pointer;
-`;
-
-const StyledLoginSection = styled.section`
-  display: flex;
-  flex: 0 1 50%;
-  align-items: center;
-  justify-content: center;
 `;
 
 const LoginSection = () => {
@@ -170,29 +184,39 @@ const LoginSection = () => {
   };
   return (
     <StyledLoginSection>
-      <SignInForm ref={formRef} onSubmit={e => handleSubmit(e)}>
-        <StyledHeader>
+      <form
+        className="signInForm"
+        ref={formRef}
+        onSubmit={e => handleSubmit(e)}
+      >
+        <h1 className="formHeader">
           {isRegistering ? "Create an Account" : "Login"}
-        </StyledHeader>
-        <FormItem>
-          <StyledLabel htmlFor="email">Email</StyledLabel>
-          <StyledInput
+        </h1>
+        <div className="formItem">
+          <label className="formLabel" htmlFor="email">
+            Email
+          </label>
+          <input
+            className="formInput"
             id="email"
             placeholder="Email"
             type="email"
             ref={emailRef}
           />
-        </FormItem>
-        <FormItem>
-          <StyledLabel htmlFor="password">Password</StyledLabel>
-          <StyledInput
+        </div>
+        <div className="formItem">
+          <label className="formLabel" htmlFor="password">
+            Password
+          </label>
+          <input
+            className="formInput"
             id="password"
             placeholder="Password"
             type="password"
             minLength={8}
             ref={passwordRef}
           />
-        </FormItem>
+        </div>
         {!isRegistering && (
           <StyledForgot to={"/log-in"}>Forgot password?</StyledForgot>
         )}
@@ -200,7 +224,7 @@ const LoginSection = () => {
           <SignInButton>{isRegistering ? "Sign Up" : "Sign In"}</SignInButton>
           {!isRegistering && (
             <StyledText>
-              Don't have account?{' '}
+              Don't have account?{" "}
               <StyledSignUp
                 to="/sign-up"
                 onClick={() => {
@@ -212,7 +236,7 @@ const LoginSection = () => {
             </StyledText>
           )}
         </SignButtonInContainer>
-      </SignInForm>
+      </form>
     </StyledLoginSection>
   );
 };
