@@ -1,10 +1,12 @@
 import { configureStore, combineReducers } from "@reduxjs/toolkit";
 import authReducer from "./fatures/auth/authSlice";
+import userSettingsReducer from "./fatures/userSettings/userSettingsSlice";
 import { apiSlice } from "../api/apiSlice";
 
 const rootReducer = combineReducers({
   [apiSlice.reducerPath]: apiSlice.reducer,
   auth: authReducer,
+  userSettings: userSettingsReducer,
 });
 
 const store = configureStore({

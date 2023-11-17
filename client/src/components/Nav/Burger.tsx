@@ -1,7 +1,8 @@
 import styled from "styled-components";
-import { useState } from "react";
 import RightNavigation from "./RightNavigation";
 import { IStyledBurger } from "../../types/IStyledBurgerProps";
+import { useAppDispatch, useAppSelector } from "../../hooks/redux";
+import { allUserSettingsProperties, setIsBurgerMenuOpen } from "../../store/fatures/userSettings/userSettingsSlice";
 
 const StyledBurger = styled.div<IStyledBurger>`
   width: 2rem;
@@ -43,16 +44,26 @@ const StyledBurger = styled.div<IStyledBurger>`
 `;
 
 const Burger = () => {
-  const [isOpen, setIsOpen] = useState<boolean>(false);
+  const dispatch = useAppDispatch();
+  const { isBurgerMenuOpen } = useAppSelector(allUserSettingsProperties);
 
   return (
     <>
-      <StyledBurger open={isOpen} onClick={() => setIsOpen(!isOpen)}>
+      <StyledBurger
+        open={isBurgerMenuOpen}
+        onClick={() => {
+          !isBurgerMenuOpen
+            ? (document.body.style.overflow = "hidden")
+            : (document.body.style.overflow = "auto");
+
+          dispatch(setIsBurgerMenuOpen(!isBurgerMenuOpen));
+        }}
+      >
         <div />
         <div />
         <div />
       </StyledBurger>
-      <RightNavigation open={isOpen} />
+      <RightNavigation open={isBurgerMenuOpen} />
     </>
   );
 };

@@ -3,6 +3,7 @@ import { useAppDispatch, useAppSelector } from "../../hooks/redux";
 import { setIsUserLoggedIn, allAuthStateProperties, setIsRegistering } from "../../store/fatures/auth/authSlice";
 import { NavLink } from "react-router-dom";
 import { IStyledBurger } from "../../types/IStyledBurgerProps";
+import { setIsBurgerMenuOpen } from "../../store/fatures/userSettings/userSettingsSlice";
 import Link from "../Link";
 
 interface INavigatoionItem {
@@ -20,13 +21,13 @@ const StyledLogout = styled(NavLink)`
   font-size: 20px;
 `;
 
-const UL = styled.ul<IStyledBurger>`
+const StyledUi = styled.ul<IStyledBurger>`
   display: flex;
   gap: 10px;
 
   @media ${props => props.theme.media.tablet} {
     height: 100%;
-    width: 50%;
+    width: 100%;
 
     transform: ${({ open }) => (open ? "translateX(0)" : "translateX(100%)")};
     transition: transform 0.3s ease-in-out;
@@ -53,6 +54,7 @@ const RightNavigation = ({ open }: IStyledBurger) => {
       name: "Sign Up",
       link: "/sign-up",
       onClick: () => {
+        dispatch(setIsBurgerMenuOpen(false));
         dispatch(setIsRegistering(true));
       },
       style: {
@@ -64,6 +66,7 @@ const RightNavigation = ({ open }: IStyledBurger) => {
       name: "Log In",
       link: "/log-in",
       onClick: () => {
+        dispatch(setIsBurgerMenuOpen(false));
         dispatch(setIsRegistering(false));
       },
       style: {
@@ -88,7 +91,7 @@ const RightNavigation = ({ open }: IStyledBurger) => {
   });
 
   return (
-    <UL open={open}>
+    <StyledUi open={open} onClick={() => dispatch(setIsBurgerMenuOpen(false))}>
       {!isUserLoggedIn ? (
         renderItems
       ) : (
@@ -101,7 +104,7 @@ const RightNavigation = ({ open }: IStyledBurger) => {
           Logout
         </StyledLogout>
       )}
-    </UL>
+    </StyledUi>
   );
 };
 
