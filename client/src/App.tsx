@@ -1,9 +1,10 @@
 import styled from "styled-components";
-// import Header from "./components/Header";
+import Header from "./components/Header";
 import Main from "./components/Main";
 
 const AppWrapper = styled.div`
   display: flex;
+  flex-direction: column;
   height: 100vh;
   user-select: none;
   // overflow: hidden;
@@ -12,7 +13,7 @@ const AppWrapper = styled.div`
 const App = () => {
   return (
     <AppWrapper>
-      {/* <Header /> */}
+      <Header />
       <Main />
     </AppWrapper>
   );
