@@ -91,7 +91,13 @@ const RightNavigation = ({ open }: IStyledBurger) => {
   });
 
   return (
-    <StyledUi open={open} onClick={() => dispatch(setIsBurgerMenuOpen(false))}>
+    <StyledUi
+      open={open}
+      onClick={() => {
+        document.body.style.overflow = "auto";
+        dispatch(setIsBurgerMenuOpen(false));
+      }}
+    >
       {!isUserLoggedIn ? (
         renderItems
       ) : (
