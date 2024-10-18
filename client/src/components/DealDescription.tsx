@@ -6,7 +6,9 @@ interface DealDescriptionProps {
   alignSelfPosition?: string;
 }
 
-const StyledDescription = styled.div<DealDescriptionProps>`
+const StyledDescription = styled.div.withConfig({
+  shouldForwardProp: prop => prop !== "alignSelfPosition",
+})<DealDescriptionProps>`
   display: flex;
   flex-direction: column;
   align-items: ${({ alignSelfPosition }) => alignSelfPosition || "start"};

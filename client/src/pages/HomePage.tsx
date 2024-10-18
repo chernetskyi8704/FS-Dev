@@ -1,12 +1,13 @@
+import { useRef } from "react";
 import styled from "styled-components";
 import { useGetAllDealsQuery } from "../store/fatures/deals/dealsApiSlice";
 import Deal from "../components/Deal";
 import homePageImage from "/src/assets/be8fbaf8d7b80aeb919c8ae858f5037f.png";
 
 const StyledContainer = styled.div`
-  width: 100%;
   position: relative;
-  height: 1024px;
+  height: 100vh;
+  width: 100%;
   background: url(${homePageImage}) no-repeat center;
   background-size: cover;
 `;
@@ -17,32 +18,14 @@ const HomePageHeaderSection = styled.section`
   left: 0;
   right: 0;
   bottom: 0;
+
   display: flex;
   flex-direction: column;
   gap: 30px;
-  justify-content: center;
   align-items: center;
+  justify-content: center;
+
   background: rgba(23, 34, 52, 0.6);
-
-  @media ${props => props.theme.media.laptopL} {
-    justify-content: start;
-    padding-top: 15%;
-  }
-
-  @media ${props => props.theme.media.laptop} {
-    justify-content: start;
-    padding-top: 25%;
-  }
-
-  @media ${props => props.theme.media.tablet} {
-    justify-content: start;
-    padding-top: 35%;
-  }
-
-  @media ${props => props.theme.media.phone} {
-    justify-content: start;
-    padding-top: 50%;
-  }
 `;
 
 const HomePageText = styled.div`
@@ -54,9 +37,9 @@ const HomePageText = styled.div`
 `;
 
 const HomePageTextHeader = styled.h1`
-  color: #fff;
   align-self: stretch;
   text-align: center;
+  color: #fff;
   font-family: Merriweather;
   font-size: clamp(2.6em, 5vw, 4em);
   font-style: normal;
@@ -67,7 +50,7 @@ const HomePageTextBody = styled.p`
   max-width: 822px;
   color: #fff;
   text-align: center;
-  font-family: Lato;
+  font-family: "Lato";
   font-size: clamp(1em, 5vw, 1.5em);
   font-style: normal;
   font-weight: 400;
@@ -80,13 +63,13 @@ const HomePageTextBody = styled.p`
 `;
 
 const HomePageButton = styled.button`
+  padding: 10px 24px;
   border: 1px solid #fff;
   border-radius: 8px;
-  padding: 10px 24px;
   cursor: pointer;
   color: #fff;
 
-  font-family: Merriweather;
+  font-family: "Merriweather";
   font-size: 20px;
   font-style: normal;
   font-weight: 700;
@@ -95,39 +78,31 @@ const HomePageButton = styled.button`
 `;
 
 const DealContainer = styled.div`
-  display: flex;
-  min-height: 100vh;
-  flex-direction: column;
-  padding: 60px 180px 10px 180px;
-  gap: 28px;
-  height: calc(1976px - 1024px);
+  align-content: flex-end;
+  padding: 20px 180px;
   min-width: 100%;
+  height: 100vh;
 
   @media ${props => props.theme.media.laptopL} {
-    padding: 40px 120px 10px 120px;
+    padding: 20px 120px;
   }
 
   @media ${props => props.theme.media.tablet} {
-    padding: 30px 60px 10px 60px;
+    padding: 20px 60px;
   }
 
   @media ${props => props.theme.media.phone} {
-    padding: 30px 20px 10px 20px;
+    padding: 20px;
   }
 `;
 
 const DealsHeader = styled.div`
   heigth: 50px;
   color: #b29f7e;
-  font-family: Merriweather;
+  font-family: "Merriweather";
   font-size: clamp(2.4em, 5vw, 3em);
   font-style: normal;
   font-weight: 700;
-  line-height: 34px;
-
-  @media ${props => props.theme.media.phone} {
-    text-align: center;
-  }
 `;
 
 const AllDeals = styled.ul`
@@ -135,14 +110,26 @@ const AllDeals = styled.ul`
   justify-content: center;
   flex-wrap: wrap;
   gap: 20px;
-  padding-bottom: 20px;
+  padding: 10px 0px;
+`;
+
+const StyledPageWrapper = styled.div`
+  height: 100vh;
 `;
 
 const HomePage = () => {
   const { data: allDeals, isSuccess } = useGetAllDealsQuery();
 
+  const dealsContainerRef = useRef<HTMLDivElement | null>(null);
+
+  const handleScrollOnClick = () => {
+    dealsContainerRef?.current?.scrollIntoView({
+      behavior: "smooth",
+    });
+  };
+
   return (
-    <>
+    <StyledPageWrapper>
       <StyledContainer>
         <HomePageHeaderSection>
           <HomePageText>
@@ -156,11 +143,13 @@ const HomePage = () => {
               mass defect is
             </HomePageTextBody>
           </HomePageText>
-          <HomePageButton>Get Started</HomePageButton>
+          <HomePageButton onClick={handleScrollOnClick}>
+            Go to Open Deals
+          </HomePageButton>
         </HomePageHeaderSection>
       </StyledContainer>
       <DealContainer>
-        <DealsHeader>Open Deals</DealsHeader>
+        <DealsHeader ref={dealsContainerRef}>Open Deals</DealsHeader>
         <AllDeals>
           {isSuccess &&
             allDeals.map(dealItem => (
@@ -168,7 +157,7 @@ const HomePage = () => {
             ))}
         </AllDeals>
       </DealContainer>
-    </>
+    </StyledPageWrapper>
   );
 };
 

@@ -16,8 +16,8 @@ const DealsItem = styled.li<Partial<DealProps>>`
   align-items: flex-end;
   position: relative;
   padding: 0px 80px 9px 9px;
-  width: 400px;
-  height: 400px;
+  width: 375px;
+  height: 375px;
 
   border-radius: 10px;
   background: url(${props => props.img});
@@ -42,7 +42,7 @@ const DealsItem = styled.li<Partial<DealProps>>`
   }
 
   @media ${props => props.theme.media.phone} {
-    height: 300px;
+    height: 250px;
   }
 `;
 

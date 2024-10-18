@@ -5,7 +5,7 @@ import Burger from "./Burger";
 const NavigationWrapper = styled.nav`
   display: flex;
   position: fixed;
-  z-index: 3;
+  z-index: 999;
   width: 100%;
   height: 90px;
   padding: 0px 70px;

@@ -7,7 +7,6 @@ const AppWrapper = styled.div`
   flex-direction: column;
   height: 100vh;
   user-select: none;
-  // overflow: hidden;
 `;
 
 const App = () => {
