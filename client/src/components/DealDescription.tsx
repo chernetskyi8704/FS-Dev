@@ -3,34 +3,31 @@ import { ReactNode } from "react";
 
 interface DealDescriptionProps {
   children: ReactNode;
-  styles: {
-    bottom: string;
-    left: string;
-    height: string;
-    fontFamily: string;
-    fontSize: string;
-    lineHeight: string;
-  };
+  alignSelfPosition?: string;
 }
 
-const StyledDescription = styled.p<DealDescriptionProps>`
-  position: absolute;
+const StyledDescription = styled.div<DealDescriptionProps>`
+  display: flex;
+  flex-direction: column;
+  align-items: ${({ alignSelfPosition }) => alignSelfPosition || "start"};
+  gap: 7px;
+
   color: #ffff;
-
-  bottom: ${({ styles }) => styles.bottom};
-  left: ${({ styles }) => styles.left};
-  width: auto;
-  height: ${({ styles }) => styles.height};
-
-  font-family: ${({ styles }) => styles.fontFamily};
-  font-size: ${({ styles }) => styles.fontSize};
-  font-style: normal;
+  font-family: "Lato";
+  font-size: clamp(14px, 3vw, 18px);
   font-weight: 700;
-  line-height: ${({ styles }) => styles.lineHeight};
+  white-space: nowrap;
 `;
 
-const DealDescription = (props: DealDescriptionProps) => {
-  return <StyledDescription {...props} />;
+const DealDescription = ({
+  children,
+  alignSelfPosition,
+}: DealDescriptionProps) => {
+  return (
+    <StyledDescription alignSelfPosition={alignSelfPosition}>
+      {children}
+    </StyledDescription>
+  );
 };
 
 export default DealDescription;

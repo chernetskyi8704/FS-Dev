@@ -1,7 +1,8 @@
 import styled from "styled-components";
-import DealDescription from "./DealDescription";
 import { DealItem } from "../store/fatures/deals/dealsApiSlice";
-import { useState, useRef, useLayoutEffect } from "react";
+import DealDescription from "./DealDescription";
+import DealDescriptionContainer from "./DealDescriptionContainer";
+import Span from "./Span";
 
 interface DealProps {
   deal: DealItem;
@@ -9,12 +10,17 @@ interface DealProps {
 }
 
 const DealsItem = styled.li<Partial<DealProps>>`
-  position: relative;
-  width: 400px;
   flex: 0 1 calc(50% - 10px);
+
+  display: flex;
+  align-items: flex-end;
+  position: relative;
+  padding: 0px 80px 9px 9px;
+  width: 400px;
+  height: 400px;
+
   border-radius: 10px;
   background: url(${props => props.img});
-  height: 400px;
 
   &::before {
     content: "";
@@ -27,8 +33,12 @@ const DealsItem = styled.li<Partial<DealProps>>`
     background: rgba(0, 0, 0, 0.2);
   }
 
-  @media ${props => props.theme.media.laptop} {
+  @media ${props => props.theme.media.laptopS} {
     min-width: 100%;
+  }
+
+  @media ${props => props.theme.media.laptopM} {
+    padding: 0px 10px 9px 9px;
   }
 
   @media ${props => props.theme.media.phone} {
@@ -36,109 +46,49 @@ const DealsItem = styled.li<Partial<DealProps>>`
   }
 `;
 
+const DealDescriptionWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+
+  width: 100%;
+  height: 25%;
+  z-index: 777;
+`;
+
+const DealDescriptionName = styled.h2`
+  font-family: "Merriweather", serif;
+  font-size: 20px;
+  color: #ffff;
+`;
+
 const Deal = ({ deal }: DealProps) => {
-  const elementRef = useRef<HTMLLIElement | null>(null);
-  const [elementWidth, setElementWidth] = useState(0);
-
-  useLayoutEffect(() => {
-    function handleResize() {
-      if (elementRef.current) {
-        const width = elementRef.current.offsetWidth;
-        setElementWidth(width);
-      }
-    }
-    handleResize();
-
-    window.addEventListener("resize", handleResize);
-
-    return () => {
-      window.removeEventListener("resize", handleResize);
-    };
-  }, [elementRef]);
-
   const containerStyles = {
     background: `url(${deal.img}) no-repeat`,
     backgroundSize: "cover",
   };
 
-  const getDaysLeftPosition = elementWidth < 364 ? "200px" : "244px";
-
   return (
-    <DealsItem style={containerStyles} ref={elementRef}>
-      <DealDescription
-        styles={{
-          bottom: "69px",
-          left: "1%",
-          height: "34px",
-          fontFamily: "Merriweather",
-          fontSize: "20px",
-          lineHeight: "34px",
-        }}
-      >
-        {deal.objName}
-      </DealDescription>
-      <DealDescription
-        styles={{
-          bottom: "47px",
-          left: "1%",
-          height: "17px",
-          fontFamily: "Lato",
-          fontSize: "18px",
-          lineHeight: "22px",
-        }}
-      >
-        {deal.objPrice} Dhs
-      </DealDescription>
-      <DealDescription
-        styles={{
-          bottom: "20px",
-          left: "1%",
-          height: "17px",
-          fontFamily: "Lato",
-          fontSize: "18px",
-          lineHeight: "22px",
-        }}
-      >
-        Tiket - {deal.ticketPrice} Dhs
-      </DealDescription>
-      <DealDescription
-        styles={{
-          bottom: "47px",
-          left: `${getDaysLeftPosition}`,
-          height: "17px",
-          fontFamily: "Lato",
-          fontSize: "18px",
-          lineHeight: "22px",
-        }}
-      >
-        Yield {deal.yield}
-      </DealDescription>
-      <DealDescription
-        styles={{
-          bottom: "20px",
-          left: `${getDaysLeftPosition}`,
-          height: "17px",
-          fontFamily: "Lato",
-          fontSize: "18px",
-          lineHeight: "22px",
-        }}
-      >
-        Days left {deal.daysLeft}
-      </DealDescription>
-      {elementWidth > 500 && (
-        <DealDescription
-          styles={{
-            bottom: "47px",
-            left: `77%`,
-            height: "17px",
-            fontFamily: "Lato",
-            fontSize: "18px",
-            lineHeight: "22px",
-          }}
-        >
-          Sold {deal.sold}
-        </DealDescription>
-      )}
+    <DealsItem style={containerStyles}>
+      <DealDescriptionWrapper>
+        <DealDescriptionName>{deal.objName}</DealDescriptionName>
+
+        <DealDescriptionContainer>
+          <DealDescription alignSelfPosition="start">
+            <Span>{deal.objPrice}&nbsp;Dhs</Span>
+            <Span>Ticket - {deal.ticketPrice}&nbsp;Dhs</Span>
+          </DealDescription>
+
+          <DealDescription>
+            <Span>Yield {deal.yield}</Span>
+            <Span>Days left {deal.daysLeft}</Span>
+          </DealDescription>
+
+          <DealDescription alignSelfPosition="end">
+            <Span>Sold {deal.sold}</Span>
+          </DealDescription>
+        </DealDescriptionContainer>
+      </DealDescriptionWrapper>
     </DealsItem>
   );
 };
